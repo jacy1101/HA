@@ -1,7 +1,7 @@
 package config
 
 import (
-	"fast_cli_template/utils/Error"
+	"HA/utils/Error"
 	"github.com/spf13/viper"
 )
 

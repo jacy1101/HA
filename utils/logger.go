@@ -1,4 +1,4 @@
-package log
+package utils
 
 import (
 	log "github.com/sirupsen/logrus"
@@ -16,14 +16,13 @@ const (
 	LogLevelPanic = "panic"
 )
 
-// Init func is a function to init logrus with specific log level
 func Init(level string) {
 	log.SetOutput(os.Stdout)
 	log.SetFormatter(logFormat())
 	log.SetLevel(logLevel(level))
+	log.SetReportCaller(true)
 }
 
-// logLevel search level strings return correct Level
 func logLevel(level string) log.Level {
 	switch level {
 	case LogLevelTrace:
@@ -45,7 +44,6 @@ func logLevel(level string) log.Level {
 	}
 }
 
-// logFormat sets log format by using prefixed "x-cray/logrus-prefixed-formatter"
 func logFormat() log.Formatter {
 	formatter := new(prefixed.TextFormatter)
 	formatter.FullTimestamp = true

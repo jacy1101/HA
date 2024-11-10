@@ -1,26 +1,35 @@
 package cmd
 
 import (
-	"fast_cli_template/utils/log"
+	"HA/utils"
 	cc "github.com/ivanpirog/coloredcobra"
 	"github.com/spf13/cobra"
 	"os"
 )
 
+var logLevel string
+
 var RootCmd = &cobra.Command{
-	Use:   "root",
-	Short: "",
+	Use:   "ha",
+	Short: "Honey AccessKey 是一个快速创建蜜标的工具。",
 	Long: `
+██╗  ██╗ ██████╗ ███╗   ██╗███████╗██╗   ██╗     █████╗ ██╗  ██╗
+██║  ██║██╔═══██╗████╗  ██║██╔════╝╚██╗ ██╔╝    ██╔══██╗██║ ██╔╝
+███████║██║   ██║██╔██╗ ██║█████╗   ╚████╔╝     ███████║█████╔╝ 
+██╔══██║██║   ██║██║╚██╗██║██╔══╝    ╚██╔╝      ██╔══██║██╔═██╗ 
+██║  ██║╚██████╔╝██║ ╚████║███████╗   ██║       ██║  ██║██║  ██╗
+╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝       ╚═╝  ╚═╝╚═╝  ╚═╝
 `,
-	PersistentPostRun: func(cmd *cobra.Command, args []string) {
-		log.Init(logLevel)
+	PersistentPreRun: func(cmd *cobra.Command, args []string) {
+		utils.Init(logLevel)
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-
+		err := cmd.Help()
+		if err != nil {
+			return
+		}
 	},
 }
-
-var logLevel string
 
 func init() {
 	RootCmd.PersistentFlags().StringVar(&logLevel, "logLevel", "info", "设置日志等级 (Set log level) [trace|debug|info|warn|error|fatal|panic]")

@@ -1,35 +1,11 @@
-## 快速命令行程序模版 fast-cli-template
+## HA 支持 Tencent Cloud && Alibaba Cloud
 
-### 依赖/特性 Dependencies/Feature
-- Cobra: 命令行的解析等 - parse commandline 
-- Viper: 配置文件的解析 - parse config files
-- TableWriter: 渲染输出表格结构体等 - render tables structs
-- ColorCobra: 彩色命令行输出 - color commandline output
-- survey: 友好的命令行交互 - friendly commandline interaction
-- logrus: 日志输出 - log output
-- go doc: 支持 godoc - support godoc
+- 读取 1password 里的 AccessKey ，安装 [CLI](https://developer.1password.com/docs/cli/get-started)
 
-### 项目结构 Structure
+```shell
+export TENCENT_CLOUD_ACCESS_KEY_ID="op://app-prod/Tencent/access key id"
+export TENCENT_CLOUD_ACCESS_KEY_SECRET="op://app-prod/Tencent/secret access key"
+export TENCENT_CLOUD_REGION="op://app-prod/Tencent/xxxxxxxxxxxxxx"
 
-```
-├── cmd                     // cmd 包 command package
-│   ├── rootCmd.go          // 主命令 rootCmd 
-│   └── version             // 子命令/模块 subcommand/submodules
-│       └── version.go      // 子命令/模块实现 subcommand/submodules implementation
-├── config                  // config 包 config package 
-│   └── config.go           // 配置文件读取
-├── main                    // main 包 创建应用二进制的地方 main package where building binary file
-│   └── main.go             
-└── utils                   // utils 包 工具函数 utils package tools functions
-    ├── Ask
-    │   └── confirm.go
-    ├── Compare
-    │   └── StringInStringArray.go
-    ├── Error
-    │   └── errorHandle.go
-    ├── Print
-    │   ├── StructPrinter.go
-    │   └── TablePrinter.go
-    └── log
-      └── logger.go
+op run --no-masking -- go run main/main.go config
 ```

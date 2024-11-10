@@ -1,8 +1,8 @@
 package version
 
 import (
-	"fast_cli_template/cmd"
-	"fast_cli_template/utils/Print"
+	"HA/cmd"
+	"HA/utils/Print"
 	"github.com/spf13/cobra"
 )
 
@@ -12,11 +12,11 @@ var version = "1.0"
 
 // init in modules will add self to RootCmd when init package.
 func init() {
-	cmd.RootCmd.AddCommand(SubCmd)
+	cmd.RootCmd.AddCommand(versionCmd)
 }
 
-// SubCmd is core cobra.Command of subcommand
-var SubCmd = &cobra.Command{
+// versionCmd is core cobra.Command of subcommand
+var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "输出版本 (Print the version number)",
 	Long:  "输出版本 (Print the version number)",
