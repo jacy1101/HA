@@ -49,7 +49,7 @@ func ConfigureAccessKey() {
 					var accessKeyList []string
 					for i, v := range credList {
 						i = i + 1
-						accessKeyList = append(accessKeyList, strconv.Itoa(i)+"\t"+v.Provider+"\t"+v.AccessKeyId)
+						accessKeyList = append(accessKeyList, strconv.Itoa(i)+"\t"+v.Provider+"\t"+v.Alias+"\t"+v.AccessKeyId)
 					}
 					accessKeyList = append(accessKeyList, "退出")
 					sort.Strings(accessKeyList)
@@ -66,7 +66,7 @@ func ConfigureAccessKey() {
 						log.Debugln("正在退出……")
 					} else {
 						for _, v := range credList {
-							if v.AccessKeyId == strings.Split(selectedAK, "\t")[2] {
+							if v.AccessKeyId == strings.Split(selectedAK, "\t")[3] {
 								var config Cloud.Config
 								config.Provider = tencent
 								config.AccessKeyId = v.AccessKeyId

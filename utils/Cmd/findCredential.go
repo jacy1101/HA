@@ -8,6 +8,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strings"
 )
 
 // 获取腾讯云配置文件
@@ -24,6 +25,7 @@ func findTencentConfig() []Cloud.Config {
 			if isTrue {
 				contentJson, _ := simplejson.NewJson([]byte(content))
 				cred := Cloud.Config{}
+				cred.Alias = "local_" + strings.TrimSuffix(tencentConfigName, ".credential")
 				cred.AccessKeyId = contentJson.Get("secretId").MustString()
 				cred.AccessKeySecret = contentJson.Get("secretKey").MustString()
 				cred.Provider = tencent
@@ -37,6 +39,7 @@ func findTencentConfig() []Cloud.Config {
 	// 2.environment variables
 	cred := Cloud.Config{}
 	cred.Provider = tencent
+	cred.Alias = "local_env"
 	accessKey := os.Getenv("TENCENTCLOUD_ACCESS_KEY_ID")
 	if utils.IsValidSecretAccessKey(accessKey) {
 		cred.AccessKeyId = accessKey
@@ -56,7 +59,9 @@ func findTencentConfig() []Cloud.Config {
 		cred.Region = ""
 	}
 
-	credList = append(credList, cred)
+	if cred.AccessKeyId != "" {
+		credList = append(credList, cred)
+	}
 
 	log.Infoln(credList)
 	return credList
